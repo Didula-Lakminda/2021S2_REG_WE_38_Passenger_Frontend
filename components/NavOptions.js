@@ -13,6 +13,12 @@ const data = [
         image: "https://media.istockphoto.com/vectors/bus-stop-bus-station-location-marker-icon-vector-id1136216828?k=20&m=1136216828&s=612x612&w=0&h=kfvAw-l6J0-QyDRUDmE4qi4qskpZSSHAZ8_WGMTQkhM=",
         screen: "MapScreen",
     },
+    {
+        id: "456",
+        title: "Timetables",
+        image: "https://e7.pngegg.com/pngimages/253/892/png-clipart-computer-icons-calendar-date-event-table-calendar-text.png",
+        screen: "TimeTableScreen",
+    }
     // {
     //     id: "456",
     //     title: "Order food",
@@ -21,7 +27,9 @@ const data = [
     // },
 ];
 
-const NavOptions = () => {
+const NavOptions = ({ userID }) => {
+
+    // console.log(userID);
 
     const navigation = useNavigation();
     const origin = useSelector(selectOrigin);
@@ -33,7 +41,7 @@ const NavOptions = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(item.screen)}  
+                    onPress={() => navigation.navigate(item.screen, userID)}  
                     style={tw`p-2 pl-5 pb-8 pt-4 bg-gray-100 m-2 w-40`}
                     // if not type where from? then this fires
                     disabled={!origin}
@@ -57,4 +65,4 @@ const NavOptions = () => {
     )
 }
 
-export default NavOptions
+export default NavOptions;

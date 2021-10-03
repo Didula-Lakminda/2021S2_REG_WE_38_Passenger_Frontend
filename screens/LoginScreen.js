@@ -16,7 +16,7 @@ const LoginScreen = () => {
   // navigation
   const navigation = useNavigation();
 
-  const [userNIC, setUserNIC] = useState("");
+  const [userID, setUserID] = useState("");
   // const [password, setPassword] = useState("");
  
   return (
@@ -30,8 +30,8 @@ const LoginScreen = () => {
           style={styles.TextInput}
           placeholder="User NIC"
           placeholderTextColor="#003f5c"
-          value={userNIC}
-          onChangeText={() => setUserNIC(e.target.value)}
+          value={userID}
+          onChangeText={(userID) => setUserID(userID)}
         />
       </View>
  
@@ -50,7 +50,7 @@ const LoginScreen = () => {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
  
-      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("HomeScreen")}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("HomeScreen", userID)}>
         <Text style={styles.loginTextLogin}>LOGIN</Text>
       </TouchableOpacity>
 

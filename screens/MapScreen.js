@@ -7,7 +7,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavigateCard from "../components/NavigateCard";
 import RideOptionsCard from "../components/RideOptionsCard";
 
-const MapScreen = () => {
+const MapScreen = ({ route }) => {
+  
+  const userID = route.params;
+  // console.log("Map screen : ", route.params);
+
   const Stack = createNativeStackNavigator();
 
   return (
@@ -32,6 +36,7 @@ const MapScreen = () => {
             options={{
               headerShown: false,
             }}
+            initialParams = {{ userID }}
           />
         </Stack.Navigator>
       </View>

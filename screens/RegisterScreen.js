@@ -66,17 +66,17 @@ const RegisterScreen = () => {
       </View>
 
       <TouchableOpacity
-        style={styles.loginBtn}
+        style={styles.registerBtn}
         onPress={() => navigation.navigate("HomeScreen")}
       >
-        <Text style={styles.loginTextLogin}>REGISTER</Text>
+        <Text style={styles.loginTextRegister}>REGISTER</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.registerBtn}
+        style={styles.loginBtn}
         onPress={() => navigation.navigate("LoginScreen")}
       >
-        <Text style={styles.loginTextRegister}>LOGIN</Text>
+        <Text style={styles.loginTextLogin}>LOGIN</Text>
       </TouchableOpacity>
     </View>
   );
@@ -117,12 +117,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-
-  loginBtn: {
+  registerBtn: {
     width: "80%",
     borderRadius: 25,
     height: 50,
@@ -131,7 +126,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "black",
   },
-  registerBtn: {
+  loginBtn: {
     width: "80%",
     borderRadius: 25,
     height: 50,
@@ -143,9 +138,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   loginTextLogin: {
-    color: "#fff",
+    color: "black",
   },
   loginTextRegister: {
-    color: "black",
+    color: "#fff",
   },
 });

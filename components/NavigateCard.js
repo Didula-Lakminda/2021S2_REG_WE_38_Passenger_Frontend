@@ -4,7 +4,7 @@ import tw from "tailwind-react-native-classnames";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useDispatch } from "react-redux";
-import { setDestination } from "../slices/navSlice";
+import { setDestination, setOrigin } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import NavFavourites from "./NavFavourites";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -13,6 +13,8 @@ import { Icon } from "react-native-elements";
 const NavigateCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  // console.log("Id comes to Happy travel : ", userID);
 
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
@@ -34,7 +36,7 @@ const NavigateCard = () => {
                 })
               );
 
-              navigation.navigate("RideOptionsCard");
+              navigation.navigate("RideOptionsCard", );
             }}
             enablePoweredByContainer={false}
             query={{
