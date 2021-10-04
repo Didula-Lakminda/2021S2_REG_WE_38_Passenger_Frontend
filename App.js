@@ -11,6 +11,8 @@ import MapScreen from './screens/MapScreen';
 import BookBus from './screens/BookBus';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import TimeTableScreen from './screens/TimeTableScreen';
+import RoutesScreen from './screens/RoutesScreen';
 
 export default function App() {
 
@@ -52,6 +54,20 @@ export default function App() {
                 <Stack.Screen
                   name="RegisterScreen"
                   component={RegisterScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="TimeTableScreen"
+                  component={TimeTableScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="RoutesScreen"
+                  component={RoutesScreen}
                   options={{
                     headerShown: false,
                   }}

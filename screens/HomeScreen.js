@@ -6,10 +6,12 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { setDestination, setOrigin } from "../slices/navSlice";
 import { useDispatch } from "react-redux";
-import NavFavourites from "../components/NavFavourites";
+// import NavFavourites from "../components/NavFavourites";
 import { useNavigation } from "@react-navigation/native";
+import NavDetails from "../components/NavDetails";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const HomeScreen = ({ route }) => {
+const HomeScreen = ({ route, navigation }) => {
 
   const userID = route.params;
   console.log(userID);
@@ -63,7 +65,11 @@ const HomeScreen = ({ route }) => {
 
         {/* nav options */}
         <NavOptions userID={userID} />
-        <NavFavourites />
+        {/* <NavFavourites /> */}
+
+        {/* time table and routes */}
+        <NavDetails />
+        
       </View>
     </SafeAreaView>
   );

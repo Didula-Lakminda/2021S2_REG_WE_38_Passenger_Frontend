@@ -13,12 +13,6 @@ const data = [
         image: "https://media.istockphoto.com/vectors/bus-stop-bus-station-location-marker-icon-vector-id1136216828?k=20&m=1136216828&s=612x612&w=0&h=kfvAw-l6J0-QyDRUDmE4qi4qskpZSSHAZ8_WGMTQkhM=",
         screen: "MapScreen",
     },
-    {
-        id: "456",
-        title: "Timetables",
-        image: "https://e7.pngegg.com/pngimages/253/892/png-clipart-computer-icons-calendar-date-event-table-calendar-text.png",
-        screen: "TimeTableScreen",
-    }
     // {
     //     id: "456",
     //     title: "Order food",
@@ -46,7 +40,8 @@ const NavOptions = ({ userID }) => {
                     // if not type where from? then this fires
                     disabled={!origin}
                     >
-                    <View style={tw`${!origin && 'opacity-20'}`}>
+                        {/*  */}
+                    <View style={tw`${!origin && 'opacity-20'}`}>  
                         <Image 
                             style={{ width: 120, height: 120, resizeMode: "contain" }}
                             source={{ uri: item.image }}

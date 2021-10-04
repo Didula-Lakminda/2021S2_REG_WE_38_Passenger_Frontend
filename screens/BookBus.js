@@ -12,8 +12,6 @@ const BookBus = ({ route }) => {
     const [distance, setDistance] = useState(route.params.travelTimeInformation.rows[0].elements[0].distance.text);
     const [time, setTime] = useState(route.params.travelTimeInformation.rows[0].elements[0].duration.text);
 
-    const [id, setid] = useState('');
-
     return (
         // <SafeAreaView>
             <View style={styles.container}> 
