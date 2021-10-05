@@ -13,6 +13,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import TimeTableScreen from './screens/TimeTableScreen';
 import RoutesScreen from './screens/RoutesScreen';
+import HistoryScreen from './screens/HistoryScreen';
 
 export default function App() {
 
@@ -68,6 +69,13 @@ export default function App() {
                 <Stack.Screen 
                   name="RoutesScreen"
                   component={RoutesScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="HistoryScreen"
+                  component={HistoryScreen}
                   options={{
                     headerShown: false,
                   }}

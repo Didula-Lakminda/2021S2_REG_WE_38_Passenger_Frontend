@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import NavDetails from "../components/NavDetails";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import HistoryButton from "../components/HistoryButton";
 
 const HomeScreen = ({ route, navigation }) => {
 
@@ -69,6 +70,8 @@ const HomeScreen = ({ route, navigation }) => {
 
         {/* time table and routes */}
         <NavDetails />
+
+        <HistoryButton />
         
       </View>
     </SafeAreaView>
