@@ -8,19 +8,19 @@ const routeTab = [
         id: "123",
         route: "120",
         routeName: "Horana - Colombo",
-        image: "https://static.thenounproject.com/png/1854714-200.png"
+        image: "https://www.pngarts.com/files/2/Route-PNG-Photo.png"
     },
     {
         id: "456",
         route: "200",
         routeName: "Colombo - Gampaha",
-        image: "https://static.thenounproject.com/png/1854714-200.png"
+        image: "https://www.pngarts.com/files/2/Route-PNG-Photo.png"
     },
     {
         id: "789",
         route: "180",
         routeName: "Mathara - Colombo",
-        image: "https://static.thenounproject.com/png/1854714-200.png"
+        image: "https://www.pngarts.com/files/2/Route-PNG-Photo.png"
     },
 ]
 
@@ -73,8 +73,8 @@ const RoutesScreen = () => {
                 >
                     <Image
                         style={{
-                            width: 45,
-                            height: 45,
+                            width: 50,
+                            height: 50,
                             resizeMode: "contain",
                         }}
                         source={{ uri: image }}
@@ -99,32 +99,20 @@ const styles = StyleSheet.create({
         marginVertical: 40,
         backgroundColor: '#FFF'
     },
-  bookTitleContain: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },    
-  bookTitle: {
-    fontSize: 40,
-    marginBottom: 50,
-    padding: 10,
-    borderStyle: 'solid',
-    borderBottomWidth: 2,
-    borderTopWidth: 2,
-    borderBottomColor: 'gray'
-    },
     titleWrapper: {
         marginTop: 20,
         paddingHorizontal: 10,
     },
     titleMain: {
-        fontSize: 20,
-        color: 'black',
-    },
-    titleSub: {
         fontSize: 30,
         color: 'black',
+        fontWeight: 'normal'
+    },
+    titleSub: {
+        fontSize: 45,
+        color: 'black',
         marginTop: 4,
+        fontWeight: 'bold'
     },
     searchbar: {
         marginTop: 30,

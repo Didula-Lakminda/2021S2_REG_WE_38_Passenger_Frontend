@@ -126,13 +126,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   titleMain: {
-    fontSize: 20,
-    color: "black",
+    fontSize: 30,
+    color: 'black',
+    fontWeight: 'normal'
   },
   titleSub: {
-    fontSize: 30,
-    color: "black",
-    marginTop: 4,
+      fontSize: 45,
+      color: 'black',
+      marginTop: 4,
+      fontWeight: 'bold'
   },
   searchbar: {
     marginTop: 30,

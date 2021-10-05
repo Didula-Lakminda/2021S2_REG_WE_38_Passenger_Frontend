@@ -71,7 +71,7 @@ const HomeScreen = ({ route, navigation }) => {
         {/* time table and routes */}
         <NavDetails />
 
-        <HistoryButton />
+        <HistoryButton userID={userID} />
         
       </View>
     </SafeAreaView>
