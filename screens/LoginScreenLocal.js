@@ -17,7 +17,26 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   const [userID, setUserID] = useState("");
-  // const [password, setPassword] = useState("");
+
+    const loginUser = () => {
+      fetch("https://cf76-112-134-159-36.ngrok.io/api/reg-passenger-local", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "": userID,
+        })
+      }).then(res => res.json())
+      .then(resData => {
+        console.log(resData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+  }
  
   return (
       
@@ -35,26 +54,15 @@ const LoginScreen = () => {
         />
       </View>
  
-      {/* <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View> */}
- 
       <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
+        <Text style={styles.forgot_button}>Welcome To Bus System</Text>
       </TouchableOpacity>
  
       <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate("HomeScreen", userID)}>
         <Text style={styles.loginTextLogin}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.registerBtn} onPress={() => navigation.navigate("RegisterScreen")}>
+      <TouchableOpacity style={styles.registerBtn} onPress={() => navigation.navigate("UserChange")}>
         <Text style={styles.loginTextRegister}>REGISTER</Text>
       </TouchableOpacity>
     </View>

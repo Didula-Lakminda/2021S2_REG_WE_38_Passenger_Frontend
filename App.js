@@ -9,11 +9,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MapScreen from './screens/MapScreen';
 import BookBus from './screens/BookBus';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import RegisterLocal from './screens/RegisterLocal';
 import TimeTableScreen from './screens/TimeTableScreen';
 import RoutesScreen from './screens/RoutesScreen';
 import HistoryScreen from './screens/HistoryScreen';
+import UserChange from './components/UserChange';
+import RegisterForeign from './screens/RegisterForeign';
+import LoginScreenLocal from './screens/LoginScreenLocal';
 
 export default function App() {
 
@@ -25,8 +27,8 @@ export default function App() {
         <SafeAreaProvider>
           <Stack.Navigator>
                 <Stack.Screen
-                  name="LoginScreen"
-                  component={LoginScreen}
+                  name="LoginScreenLocal"
+                  component={LoginScreenLocal}
                   options={{
                     headerShown: false,
                   }}
@@ -53,8 +55,15 @@ export default function App() {
                   }}
                 />
                 <Stack.Screen
-                  name="RegisterScreen"
-                  component={RegisterScreen}
+                  name="RegisterLocal"
+                  component={RegisterLocal}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="RegisterForeign"
+                  component={RegisterForeign}
                   options={{
                     headerShown: false,
                   }}
@@ -76,6 +85,13 @@ export default function App() {
                 <Stack.Screen 
                   name="HistoryScreen"
                   component={HistoryScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="UserChange"
+                  component={UserChange}
                   options={{
                     headerShown: false,
                   }}

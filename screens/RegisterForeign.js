@@ -1,35 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import URL from "../route";
 
-const RegisterScreen = () => {
-
-      // navigation
+const RegisterForeign = () => {
+  // navigation
   const navigation = useNavigation();
+
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [passport, setPassport] = useState("");
+  const [tot, setTot] = useState("");
+
+  const registerUser = () => {
+    fetch(URL + "/reg-passenger-foreign", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: fname,
+        lastname: lname,
+        email: email,
+        passport: passport,
+        tot_amount: tot,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+        alert("Register Successfully");
+        navigation.navigate("LoginScreen");
+      })
+      .catch((err) => {
+        console.log(err.res.message);
+        alert("Please Enter Valid Details");
+
+      });
+  };
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: "https://i.etsystatic.com/11143919/r/il/cbcde4/1604045490/il_570xN.1604045490_m25x.jpg",
-        }}
-      />
+      <View style={styles.titleWrapper}>
+        <Text style={styles.titleMain}>Welcome</Text>
+        <Text style={styles.titleSub}>Foreign Passenger</Text>
+      </View>
 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="First Name"
           placeholderTextColor="#003f5c"
-          //   value={userNIC}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          value={fname}
+          onChangeText={(text) => setFname(text)}
         />
       </View>
 
@@ -38,8 +69,8 @@ const RegisterScreen = () => {
           style={styles.TextInput}
           placeholder="Last Name"
           placeholderTextColor="#003f5c"
-          //   value={userNIC}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          value={lname}
+          onChangeText={(text) => setLname(text)}
         />
       </View>
 
@@ -47,10 +78,10 @@ const RegisterScreen = () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="User NIC"
+          placeholder="User Passport"
           placeholderTextColor="#003f5c"
-          //   value={userNIC}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          value={passport}
+          onChangeText={(text) => setPassport(text)}
         />
       </View>
 
@@ -59,16 +90,24 @@ const RegisterScreen = () => {
           style={styles.TextInput}
           placeholder="Email"
           placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          // value={password}
-          // onChangeText={(password) => setPassword(password)}
+          // secureTextEntry={true}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
       </View>
 
-      <TouchableOpacity
-        style={styles.registerBtn}
-        onPress={() => navigation.navigate("HomeScreen")}
-      >
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Amount"
+          placeholderTextColor="#003f5c"
+          keyboardType="numeric"
+          value={tot}
+          onChangeText={(text) => setTot(text)}
+        />
+      </View>
+
+      <TouchableOpacity style={styles.registerBtn} onPress={registerUser}>
         <Text style={styles.loginTextRegister}>REGISTER</Text>
       </TouchableOpacity>
 
@@ -82,7 +121,7 @@ const RegisterScreen = () => {
   );
 };
 
-export default RegisterScreen;
+export default RegisterForeign;
 
 const styles = StyleSheet.create({
   container: {
@@ -91,13 +130,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  image: {
-    marginBottom: 80,
-    width: 300,
-    height: 100,
+  titleWrapper: {
+    marginTop: 20,
+    paddingHorizontal: 10,
+    marginBottom: 40,
   },
-
+  titleMain: {
+    fontSize: 30,
+    color: 'black',
+    fontWeight: 'normal'
+  },
+  titleSub: {
+      fontSize: 40,
+      color: 'black',
+      marginTop: 4,
+      fontWeight: 'bold'
+  },
   inputView: {
     backgroundColor: "#FFF",
     borderRadius: 20,

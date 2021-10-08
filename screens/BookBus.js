@@ -6,7 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import tw from "tailwind-react-native-classnames";
+// import tw from "tailwind-react-native-classnames";
+import URL from '../route';
+import { useNavigation } from "@react-navigation/native";
 
 
 Date.prototype.monthNames = [
@@ -20,14 +22,10 @@ Date.prototype.getMonthName = function() {
   return this.monthNames[this.getMonth()];
 };
 
-var date = new Date();
-var monthName = date.getMonthName();
-var year = date.getFullYear();
-
 
 const BookBus = ({ route }) => {
   // console.log(route.params);
-  // console.log(route.params.travelTimeInformation.destination_addresses[0]);
+  const navigation = useNavigation();
 
   const [nicId, setNICId] = useState(route.params.userID);
   const [startpoint, setstartpoint] = useState(
@@ -39,11 +37,44 @@ const BookBus = ({ route }) => {
   const [distance, setDistance] = useState(
     route.params.travelTimeInformation.rows[0].elements[0].distance.text
   );
-  const [time, setTime] = useState(
-    route.params.travelTimeInformation.rows[0].elements[0].duration.text
-  );
+  // const [time, setTime] = useState(
+  //   route.params.travelTimeInformation.rows[0].elements[0].duration.text
+  // );
 
-  const current = year + ", " + monthName;
+   const CURRENT_RATE = 10.5;
+   const multiplier = 1.2
+
+  const calc = Math.round((route.params.travelTimeInformation.rows[0].elements[0].distance.value* CURRENT_RATE*multiplier)/10000);
+
+   const calcToString = calc.toString();
+
+  const bookRouteTicket = () => {
+    fetch(URL + "/local-passenger-route", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nic: nicId,
+        start_des: startpoint,
+        end_des: endpoint,
+        distance: distance,
+        amount: calcToString,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+        alert('Payment Successfully');
+        navigation.navigate("HomeScreen", nicId);
+
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('Account Has Some Problem');
+      });
+  };
 
   return (
     // <SafeAreaView>
@@ -58,17 +89,7 @@ const BookBus = ({ route }) => {
           placeholder="NIC"
           placeholderTextColor="#003f5c"
           value={nicId}
-          //   onChangeText={() => setUserNIC(e.target.value)}
-        />
-      </View>
-
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="NIC"
-          placeholderTextColor="#003f5c"
-          value={current}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          onChangeText={(nicId) => setNICId(nicId)}
         />
       </View>
 
@@ -77,7 +98,7 @@ const BookBus = ({ route }) => {
           style={styles.TextInput}
           placeholderTextColor="#003f5c"
           value={startpoint}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          onChangeText={(startpoint) => setstartpoint(startpoint)}
         />
       </View>
 
@@ -86,7 +107,7 @@ const BookBus = ({ route }) => {
           style={styles.TextInput}
           placeholderTextColor="#003f5c"
           value={endpoint}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          onChangeText={(endpoint) => setendpoint(endpoint)}
         />
       </View>
 
@@ -94,23 +115,24 @@ const BookBus = ({ route }) => {
         <TextInput
           style={styles.TextInput}
           placeholderTextColor="#003f5c"
+          keyboardType='numeric'
           value={distance}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          onChangeText={(distance) => setDistance(distance)}
         />
       </View>
 
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholderTextColor="#003f5c"
-          value={time}
-          //   onChangeText={() => setUserNIC(e.target.value)}
+          placeholder="Amount"
+          value={calcToString}
         />
       </View>
 
       <TouchableOpacity
         style={styles.bookBtn}
         // onPress={() => navigation.navigate("RegisterScreen")}
+        onPress={bookRouteTicket}
       >
         <Text style={styles.loginTextBook}>BOOK</Text>
       </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
+import URL from "../route";
 
 const historyTab = [
   {
@@ -36,6 +37,8 @@ const HistoryScreen = ({ route }) => {
 
   // console.log("History Nic : ", route.params);
 
+  const Nic = route.params;
+
   const [searchFilter, setSearchFilter] = useState(historyTab);
 
   const searchTimeTable = (textToSearch) => {
@@ -45,6 +48,45 @@ const HistoryScreen = ({ route }) => {
       )
     );
   };
+
+  const getUserHistory = () => {
+    fetch(URL + "/local-history", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nic: Nic,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // const getUserHistory = () => {
+
+  //   let getId = {
+  //     nic: Nic,
+  //   }
+
+  //   axios.get("https://5a3f-112-134-158-158.ngrok.io/api/local-history", getId)
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
+
+  useEffect(() => {
+    getUserHistory();
+  }, []);
 
   return (
     <View style={styles.container}>
