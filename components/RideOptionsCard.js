@@ -15,9 +15,10 @@ import { useSelector } from "react-redux";
 import { selectTravelTimeInformation } from "../slices/navSlice";
 
 const RideOptionsCard = ({ route }) => {
-
   // console.log("Ride options : ", route.params);
   const userID = route.params.userID;
+  const num = route.params.num;
+  const Local = route.params.LocalUserID.LocalUserID;
 
   const data = [
     {
@@ -38,8 +39,6 @@ const RideOptionsCard = ({ route }) => {
 
   // console.log(travelTimeInformation);
 
-  // const CURRENT_RATE = 1.5;
-
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
       {/* ride text and button */}
@@ -51,7 +50,8 @@ const RideOptionsCard = ({ route }) => {
           <Icon name="chevron-left" type="fontawesome" />
         </TouchableOpacity>
         <Text style={tw`text-center py-5 text-xl`}>
-          Select a Ride = {travelTimeInformation?.rows[0].elements[0].distance.text}
+          Select a Ride ={" "}
+          {travelTimeInformation?.rows[0].elements[0].distance.text}
         </Text>
       </View>
 
@@ -59,10 +59,18 @@ const RideOptionsCard = ({ route }) => {
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item: { id, title, multiplier, image }, item }) => (
+        renderItem={({ item: { id, title, image }, item }) => (
           <TouchableOpacity
             // onPress={() => setSelected(item)}
-            onPress={() => {navigation.navigate("BookBusScreen", { item, travelTimeInformation, userID })}}
+            onPress={() => {
+              navigation.navigate("BookBusScreen", {
+                item,
+                travelTimeInformation,
+                userID,
+                num,
+                Local,
+              });
+            }}
             style={tw`flex-row justify-between items-center px-10 ${
               id === selected?.id && "bg-gray-200"
             }`}
@@ -78,7 +86,9 @@ const RideOptionsCard = ({ route }) => {
 
             <View style={tw`-ml-6`}>
               <Text style={tw`text-xl font-semibold`}>{title}</Text>
-              <Text>{travelTimeInformation?.rows[0].elements[0].duration.text}</Text>
+              <Text>
+                {travelTimeInformation?.rows[0].elements[0].duration.text}
+              </Text>
             </View>
             <Text style={tw`text-xl`}>
               Rs. 30
