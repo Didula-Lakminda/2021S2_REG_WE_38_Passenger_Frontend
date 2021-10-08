@@ -16,6 +16,8 @@ import HistoryScreen from './screens/HistoryScreen';
 import UserChange from './components/UserChange';
 import RegisterForeign from './screens/RegisterForeign';
 import LoginScreenLocal from './screens/LoginScreenLocal';
+import LoginMain from './components/LoginMain';
+import LoginScreenForeign from './screens/LoginScreenForeign';
 
 export default function App() {
 
@@ -27,8 +29,22 @@ export default function App() {
         <SafeAreaProvider>
           <Stack.Navigator>
                 <Stack.Screen
+                  name="LoginMain"
+                  component={LoginMain}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
                   name="LoginScreenLocal"
                   component={LoginScreenLocal}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="LoginScreenForeign"
+                  component={LoginScreenForeign}
                   options={{
                     headerShown: false,
                   }}

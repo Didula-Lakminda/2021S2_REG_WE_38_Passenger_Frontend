@@ -11,23 +11,12 @@ import URL from '../route';
 import { useNavigation } from "@react-navigation/native";
 
 
-Date.prototype.monthNames = [
-  "January", "February", "March",
-  "April", "May", "June",
-  "July", "August", "September",
-  "October", "November", "December"
-];
-
-Date.prototype.getMonthName = function() {
-  return this.monthNames[this.getMonth()];
-};
-
-
 const BookBus = ({ route }) => {
-  // console.log(route.params);
+  console.log(route.params);
   const navigation = useNavigation();
 
-  const [nicId, setNICId] = useState(route.params.userID);
+  const [nicId, setNICId] = useState(route.params.Local);
+  const [passportID, setPassportID] = useState(route.params.Local.foreignUserID);
   const [startpoint, setstartpoint] = useState(
     route.params.travelTimeInformation.origin_addresses[0]
   );
@@ -49,31 +38,62 @@ const BookBus = ({ route }) => {
    const calcToString = calc.toString();
 
   const bookRouteTicket = () => {
-    fetch(URL + "/local-passenger-route", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nic: nicId,
-        start_des: startpoint,
-        end_des: endpoint,
-        distance: distance,
-        amount: calcToString,
-      }),
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        console.log(resData);
-        alert('Payment Successfully');
-        navigation.navigate("HomeScreen", nicId);
+    console.log(route.params.Local.num);
 
+    if(route.params.Local.num === "1"){
+      fetch(URL + "/foreign-passenger-route", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          passport: passportID,
+          start_des: startpoint,
+          end_des: endpoint,
+          distance: distance,
+          amount: calcToString,
+        }),
       })
-      .catch((err) => {
-        console.log(err);
-        alert('Account Has Some Problem');
-      });
+        .then((res) => res.json())
+        .then((resData) => {
+          console.log(resData);
+          alert('Payment Successfully');
+          navigation.navigate("HomeScreen", passportID);
+
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Account Has Some Problem');
+        });
+    }
+    else{
+      fetch(URL + "/local-passenger-route", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nic: nicId,
+          start_des: startpoint,
+          end_des: endpoint,
+          distance: distance,
+          amount: calcToString,
+        }),
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          console.log(resData);
+          alert('Payment Successfully');
+          navigation.navigate("HomeScreen", nicId);
+
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Account Has Some Problem');
+        });
+    }
   };
 
   return (
@@ -89,7 +109,19 @@ const BookBus = ({ route }) => {
           placeholder="NIC"
           placeholderTextColor="#003f5c"
           value={nicId}
-          onChangeText={(nicId) => setNICId(nicId)}
+          // value={passportID}
+          // onChangeText={(passportID) => setPassportID(passportID)}
+        />
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="NIC"
+          placeholderTextColor="#003f5c"
+          value={passportID}
+          // value={passportID}
+          // onChangeText={(passportID) => setPassportID(passportID)}
         />
       </View>
 

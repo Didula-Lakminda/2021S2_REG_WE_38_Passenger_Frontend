@@ -16,8 +16,8 @@ const data = [
   },
 ];
 
-const NavOptions = ({ userID }) => {
-  // console.log(userID);
+const NavOptions = ({ ForeignuserID, num, LocalUserID }) => {
+  console.log("Nav Options : ", ForeignuserID, num, LocalUserID);
 
   const navigation = useNavigation();
   const origin = useSelector(selectOrigin);
@@ -29,7 +29,7 @@ const NavOptions = ({ userID }) => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => navigation.navigate(item.screen, userID)}
+          onPress={() => navigation.navigate(item.screen, {ForeignuserID, num, LocalUserID})}
           style={tw`p-2 pl-5 pb-8 pt-4 bg-gray-100 m-2 w-40`}
           // if not type where from? then this fires
           disabled={!origin}

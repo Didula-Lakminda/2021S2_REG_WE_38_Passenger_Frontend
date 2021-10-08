@@ -17,6 +17,8 @@ import { selectTravelTimeInformation } from "../slices/navSlice";
 const RideOptionsCard = ({ route }) => {
   // console.log("Ride options : ", route.params);
   const userID = route.params.userID;
+  const num = route.params.num;
+  const Local = route.params.LocalUserID.LocalUserID;
 
   const data = [
     {
@@ -65,6 +67,8 @@ const RideOptionsCard = ({ route }) => {
                 item,
                 travelTimeInformation,
                 userID,
+                num,
+                Local,
               });
             }}
             style={tw`flex-row justify-between items-center px-10 ${

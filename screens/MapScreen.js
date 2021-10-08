@@ -9,8 +9,11 @@ import RideOptionsCard from "../components/RideOptionsCard";
 
 const MapScreen = ({ route }) => {
   
-  const userID = route.params;
-  // console.log("Map screen : ", route.params);
+  const userID = route.params.ForeignuserID;
+  const LocalUserID = route.params;
+  const num = route.params.num;
+  // console.log("Map screen : ", route.params.ForeignuserID, num);
+  console.log(LocalUserID);
 
   const Stack = createNativeStackNavigator();
 
@@ -36,7 +39,7 @@ const MapScreen = ({ route }) => {
             options={{
               headerShown: false,
             }}
-            initialParams = {{ userID }}
+            initialParams = {{ userID, num, LocalUserID }}
           />
         </Stack.Navigator>
       </View>

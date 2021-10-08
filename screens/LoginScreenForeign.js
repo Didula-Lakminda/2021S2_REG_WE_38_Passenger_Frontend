@@ -10,36 +10,37 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import URL from '../route';
+import URL from "../route";
 
-const LoginScreenLocal = () => {
+const LoginScreenForeign = () => {
 
   // navigation
   const navigation = useNavigation();
 
-  const [localUserID, setLocalUserID] = useState("");
+  const [foreignUserID, setForeignUserID] = useState("");
+  const num = "1";
 
     const loginUser = () => {
-      fetch(URL + "/login-passenger-local", {
+      fetch(URL + "/login-passenger-foreign", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          nic: localUserID,
+          passport: foreignUserID,
         })
       }).then(res => res.json())
       .then(resData => {
         console.log(resData);
-        if(localUserID === ""){
-          alert("Please Enter NIC");
+        if(foreignUserID === ""){
+          alert("Please Enter Passport ID");
         }
         else if(resData === 0){
-          alert("Invalid NIC");
+          alert("Invalid Passport ID");
         }
         else{
-          navigation.navigate("HomeScreen", localUserID);
+          navigation.navigate("HomeScreen", {foreignUserID, num})
         }
       })
       .catch((err) => {
@@ -57,10 +58,10 @@ const LoginScreenLocal = () => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="User NIC"
+          placeholder="User Passport"
           placeholderTextColor="#003f5c"
-          value={localUserID}
-          onChangeText={(localUserID) => setLocalUserID(localUserID)}
+          value={foreignUserID}
+          onChangeText={(foreignUserID) => setForeignUserID(foreignUserID)}
         />
       </View>
  
@@ -79,7 +80,7 @@ const LoginScreenLocal = () => {
   );
 }
 
-export default LoginScreenLocal
+export default LoginScreenForeign
 
 const styles = StyleSheet.create({
     container: {

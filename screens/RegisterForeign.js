@@ -38,7 +38,7 @@ const RegisterForeign = () => {
       .then((resData) => {
         console.log(resData);
         alert("Register Successfully");
-        navigation.navigate("LoginScreen");
+        navigation.navigate("LoginMain");
       })
       .catch((err) => {
         console.log(err.res.message);
