@@ -36,7 +36,7 @@ const NavigateCard = () => {
                 })
               );
 
-              navigation.navigate("RideOptionsCard", );
+              navigation.navigate("RideOptionsCard");
             }}
             enablePoweredByContainer={false}
             query={{
@@ -56,24 +56,14 @@ const NavigateCard = () => {
         style={tw`flex-row bg-white justify-evenly py-2 mt-auto border-t border-gray-500`}
       >
         <TouchableOpacity
-          onPress={() => {navigation.navigate("RideOptionsCard"), setDestination}}
+          onPress={() => {
+            navigation.navigate("RideOptionsCard"), setDestination;
+          }}
           style={tw`flex flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
         >
           <Icon name="car" type="font-awesome" color="white" size={16} />
           <Text style={tw`text-white text-center`}>Rides</Text>
         </TouchableOpacity>
-
-        {/* <TouchableOpacity
-          style={tw`flex flex-row justify-between w-24 px-4 py-3 rounded-full bg-gray-200`}
-        >
-          <Icon
-            name="fast-food-outline"
-            type="ionicon"
-            color="black"
-            size={16}
-          />
-          <Text style={tw`text-black text-center`}>Eats</Text>
-        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

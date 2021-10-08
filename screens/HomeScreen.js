@@ -10,11 +10,15 @@ import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import NavDetails from "../components/NavDetails";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import HistoryButton from "../components/HistoryButton";
 
 const HomeScreen = ({ route, navigation }) => {
 
-  const userID = route.params;
-  console.log(userID);
+
+  // console.log(route.params);
+  const ForeignuserID = route.params.foreignUserID;
+  const LocalUserID = route.params;
+  const num = route.params.num;
 
   const dispatch = useDispatch();
 
@@ -64,11 +68,13 @@ const HomeScreen = ({ route, navigation }) => {
         />
 
         {/* nav options */}
-        <NavOptions userID={userID} />
+        <NavOptions ForeignuserID={ForeignuserID} num={num} LocalUserID={LocalUserID} />
         {/* <NavFavourites /> */}
 
         {/* time table and routes */}
         <NavDetails />
+
+        {/* <HistoryButton userID={userID} /> */}
         
       </View>
     </SafeAreaView>
