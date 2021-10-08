@@ -59,7 +59,7 @@ const BookBus = ({ route }) => {
         .then((resData) => {
           console.log(resData);
           alert('Payment Successfully');
-          navigation.navigate("HomeScreen", passportID);
+          navigation.navigate("LoginScreenForeign", passportID);
 
         })
         .catch((err) => {
@@ -86,7 +86,7 @@ const BookBus = ({ route }) => {
         .then((resData) => {
           console.log(resData);
           alert('Payment Successfully');
-          navigation.navigate("HomeScreen", nicId);
+          navigation.navigate("LoginScreenLocal", nicId);
 
         })
         .catch((err) => {
@@ -109,6 +109,7 @@ const BookBus = ({ route }) => {
           placeholder="NIC"
           placeholderTextColor="#003f5c"
           value={nicId}
+          editable={false}
           // value={passportID}
           // onChangeText={(passportID) => setPassportID(passportID)}
         />
@@ -117,9 +118,10 @@ const BookBus = ({ route }) => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="NIC"
+          placeholder="Passport"
           placeholderTextColor="#003f5c"
           value={passportID}
+          editable={false}
           // value={passportID}
           // onChangeText={(passportID) => setPassportID(passportID)}
         />
@@ -131,6 +133,7 @@ const BookBus = ({ route }) => {
           placeholderTextColor="#003f5c"
           value={startpoint}
           onChangeText={(startpoint) => setstartpoint(startpoint)}
+          editable={false}
         />
       </View>
 
@@ -140,6 +143,7 @@ const BookBus = ({ route }) => {
           placeholderTextColor="#003f5c"
           value={endpoint}
           onChangeText={(endpoint) => setendpoint(endpoint)}
+          editable={false}
         />
       </View>
 
@@ -150,6 +154,7 @@ const BookBus = ({ route }) => {
           keyboardType='numeric'
           value={distance}
           onChangeText={(distance) => setDistance(distance)}
+          editable={false}
         />
       </View>
 
@@ -158,6 +163,7 @@ const BookBus = ({ route }) => {
           style={styles.TextInput}
           placeholder="Amount"
           value={calcToString}
+          editable={false}
         />
       </View>
 
@@ -202,6 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    color: 'black'
   },
   bookBtn: {
     width: "80%",

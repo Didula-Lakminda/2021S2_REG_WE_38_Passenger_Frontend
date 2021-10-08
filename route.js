@@ -1,3 +1,3 @@
-const URL = "https://d2ca-112-134-158-158.ngrok.io/api";
+const URL = "https://50da-112-134-152-193.ngrok.io/api";
 
 module.exports = URL;

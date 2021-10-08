@@ -11,78 +11,163 @@ import {
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
 import URL from "../route";
+import Subject from "../utility/Utility";
 
-const historyTab = [
-  {
-    id: "123",
-    image: "https://static.thenounproject.com/png/82129-200.png",
-    month: "January 2021",
-    place: "Colombo - Horana",
-  },
-  {
-    id: "456",
-    image: "https://static.thenounproject.com/png/82129-200.png",
-    month: "March 2021",
-    place: "Gampaha - Colombo",
-  },
-  {
-    id: "789",
-    image: "https://static.thenounproject.com/png/82129-200.png",
-    month: "June 2021",
-    place: "Mathara - Colombo",
-  },
-];
+// const historyTab = [
+//   {
+//     id: "123",
+//     image: "https://static.thenounproject.com/png/82129-200.png",
+//     month: "January 2021",
+//     place: "Colombo - Horana",
+//   },
+//   {
+//     id: "456",
+//     image: "https://static.thenounproject.com/png/82129-200.png",
+//     month: "March 2021",
+//     place: "Gampaha - Colombo",
+//   },
+//   {
+//     id: "789",
+//     image: "https://static.thenounproject.com/png/82129-200.png",
+//     month: "June 2021",
+//     place: "Mathara - Colombo",
+//   },
+// ];
 
 const HistoryScreen = ({ route }) => {
 
-  // console.log("History Nic : ", route.params);
+  // console.log(route.params);
 
-  const Nic = route.params;
+  const [history, setHistory] = useState();
+  const [balance, setBalance] = useState('');
 
-  const [searchFilter, setSearchFilter] = useState(historyTab);
+// create object in here
+  const subject = new Subject();
 
-  const searchTimeTable = (textToSearch) => {
-    setSearchFilter(
-      historyTab.filter((i) =>
-        i.month.toLowerCase().includes(textToSearch.toLowerCase())
-      )
-    );
-  };
-
-  const getUserHistory = () => {
-    fetch(URL + "/local-history", {
-      method: "GET",
+  // observer function 1
+  function Observer1()
+  {
+    fetch(URL + "/foreign-history", {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nic: Nic,
+        passport: route.params.ForeignuserID,
       }),
     })
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
+        setHistory(resData);
+        setSearchFilter(resData);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+  
+  // observer function 2
+  function Observer2()
+  {
+    fetch(URL + "/get-balance-foreign", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        passport: route.params.ForeignuserID,
+      }),
+    })
+      .then((res) => res.json())
+      .then((balanceData) => {
+        // console.log(balanceData.balance);
+        setBalance(balanceData.balance);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // start history part
+
+  // observer function 3
+  function Observer3() 
+  {
+    fetch(URL + "/local-history", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nic: route.params.LocalUserID,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+        setHistory(resData);
+        setSearchFilter(resData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // observer function 4
+  function Observer4()
+  {
+    fetch(URL + "/get-balance-local", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nic: route.params.LocalUserID,
+      }),
+    })
+      .then((res) => res.json())
+      .then((balanceData) => {
+        // console.log(balanceData.balance);
+        setBalance(balanceData.balance);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const getUserHistory = () => {
+    if(route.params.num === "1"){
+      subject.subscribe(Observer1)
+      subject.subscribe(Observer2)
+      // fires
+      subject.fire() 
+      // after work it will removed
+      subject.unsubscribe(Observer1)
+      subject.unsubscribe(Observer2)
+    }
+    else{
+      subject.subscribe(Observer3)
+      subject.subscribe(Observer4)
+      subject.fire() 
+      subject.unsubscribe(Observer3)
+      subject.unsubscribe(Observer4)
+    }
   };
 
-  // const getUserHistory = () => {
+  const [searchFilter, setSearchFilter] = useState();
 
-  //   let getId = {
-  //     nic: Nic,
-  //   }
-
-  //   axios.get("https://5a3f-112-134-158-158.ngrok.io/api/local-history", getId)
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
+  const searchTimeTable = (textToSearch) => {
+    setSearchFilter(
+      history.filter((i) =>
+        i.start_des.toLowerCase().includes(textToSearch.toLowerCase())
+      )
+    );
+  };
 
   useEffect(() => {
     getUserHistory();
@@ -91,8 +176,9 @@ const HistoryScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.titleMain}>Your </Text>
+        <Text style={styles.titleMain}>Your</Text>
         <Text style={styles.titleSub}>History</Text>
+        <Text style={styles.titleBalance}>Balance : Rs.{balance}</Text>
       </View>
 
       <View style={styles.searchbar}>
@@ -117,7 +203,7 @@ const HistoryScreen = ({ route }) => {
       <FlatList
         data={searchFilter}
         keyExtractor={(item) => item.id}
-        renderItem={({ item: { image, month, place } }) => (
+        renderItem={({ item: { start_des, end_des, amount } }) => (
           <TouchableOpacity
             style={tw`flex-row items-center p-5 rounded-3xl
                 border-4 border-black border-opacity-10 m-2
@@ -130,14 +216,17 @@ const HistoryScreen = ({ route }) => {
                 height: 100,
                 resizeMode: "contain",
               }}
-              source={{ uri: image }}
+              source={{ uri: "https://static.thenounproject.com/png/82129-200.png" }}
             />
             <View>
-              <Text style={tw`font-semibold text-xl ml-10`}>
-                Month : {month}
+              <Text style={tw`font-semibold text-sm ml-10`}>
+                From : {start_des}
               </Text>
-              <Text style={tw`text-gray-700 text-lg ml-10`}>
-                Place : {place}
+              <Text style={tw`font-semibold text-black text-sm ml-10`}>
+                To : {end_des}
+              </Text>
+              <Text style={tw`text-gray-600 text-sm ml-10`}>
+                Amount : Rs.{amount}
               </Text>
             </View>
           </TouchableOpacity>
@@ -170,6 +259,11 @@ const styles = StyleSheet.create({
     color: "black",
     marginTop: 4,
     fontWeight: "bold",
+  },
+  titleBalance: {
+    fontSize: 20,
+    color: 'gray',
+    marginTop: 10,
   },
   searchbar: {
     marginTop: 30,
