@@ -18,6 +18,7 @@ import RegisterForeign from './screens/RegisterForeign';
 import LoginScreenLocal from './screens/LoginScreenLocal';
 import LoginMain from './components/LoginMain';
 import LoginScreenForeign from './screens/LoginScreenForeign';
+import ReloadAgain from './screens/ReloadAgain';
 
 export default function App() {
 
@@ -108,6 +109,13 @@ export default function App() {
                 <Stack.Screen 
                   name="UserChange"
                   component={UserChange}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen 
+                  name="ReloadAgain"
+                  component={ReloadAgain}
                   options={{
                     headerShown: false,
                   }}

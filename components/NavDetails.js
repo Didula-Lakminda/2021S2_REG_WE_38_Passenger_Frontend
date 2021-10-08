@@ -25,10 +25,19 @@ const data = [
     description: "Show bus routes",
     screen: "RoutesScreen",
   },
+  {
+    id: "789",
+    icon: "man",
+    name: "Reload Again",
+    description: "Reload credits again",
+    screen: "ReloadAgain"
+  }
 ];
 
-const NavDetails = () => {
+const NavDetails = ({ ForeignuserID, num, LocalUserID }) => {
   const navigation = useNavigation();
+
+  // console.log(ForeignuserID, num, LocalUserID);
 
   return (
     <FlatList
@@ -40,7 +49,7 @@ const NavDetails = () => {
       renderItem={({ item: { icon, name, description, screen } }) => (
         <TouchableOpacity
           style={tw`flex-row items-center p-5`}
-          onPress={() => navigation.navigate(screen)}
+          onPress={() => navigation.navigate(screen, { ForeignuserID, num, LocalUserID })}
         >
           <Icon
             style={tw`mr-4 rounded-full bg-gray-300 p-3`}

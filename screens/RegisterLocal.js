@@ -37,8 +37,13 @@ const RegisterScreen = () => {
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
-        alert('Registered Successfully');
-        navigation.navigate("LoginScreen");
+        if(resData.message === "local passenger validation fails"){
+          alert('Please fill all fields');
+        }
+        else{
+          alert('Registered Successfully');
+          navigation.navigate("LoginMain");
+        }
       })
       .catch((err) => {
         console.log(err);

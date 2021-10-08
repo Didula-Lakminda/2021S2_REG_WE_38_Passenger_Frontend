@@ -17,7 +17,7 @@ const data = [
 ];
 
 const NavOptions = ({ ForeignuserID, num, LocalUserID }) => {
-  console.log("Nav Options : ", ForeignuserID, num, LocalUserID);
+  // console.log("Nav Options : ", ForeignuserID, num, LocalUserID);
 
   const navigation = useNavigation();
   const origin = useSelector(selectOrigin);

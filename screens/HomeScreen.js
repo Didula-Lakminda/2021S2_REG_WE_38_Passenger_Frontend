@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import NavDetails from "../components/NavDetails";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import HistoryButton from "../components/HistoryButton";
+import { Icon } from "react-native-elements";
 
 const HomeScreen = ({ route, navigation }) => {
 
@@ -72,9 +73,9 @@ const HomeScreen = ({ route, navigation }) => {
         {/* <NavFavourites /> */}
 
         {/* time table and routes */}
-        <NavDetails />
+        <NavDetails ForeignuserID={ForeignuserID} num={num} LocalUserID={LocalUserID} />
 
-        {/* <HistoryButton userID={userID} /> */}
+        <HistoryButton ForeignuserID={ForeignuserID} num={num} LocalUserID={LocalUserID} />
         
       </View>
     </SafeAreaView>

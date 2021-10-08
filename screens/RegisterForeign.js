@@ -37,8 +37,13 @@ const RegisterForeign = () => {
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
-        alert("Register Successfully");
-        navigation.navigate("LoginMain");
+        if(resData.message === "foreign passenger fails"){
+          alert('Please fill all fields');
+        }
+        else{
+          alert('Registered Successfully');
+          navigation.navigate("LoginMain");
+        }
       })
       .catch((err) => {
         console.log(err.res.message);
