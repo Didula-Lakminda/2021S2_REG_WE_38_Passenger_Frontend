@@ -10,41 +10,43 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
-
-const timeTab = [
-  {
-    id: "123",
-    image: "https://image.pngaaa.com/9/554009-middle.png",
-    route: "120",
-    plate: "BC-2000",
-    time: "7.30 a.m",
-    routeName: "Colombo - Horana",
-  },
-  {
-    id: "456",
-    image: "https://image.pngaaa.com/9/554009-middle.png",
-    route: "125",
-    plate: "BC-2010",
-    time: "5.30 p.m",
-    routeName: "Gampaha - Colombo",
-  },
-  {
-    id: "789",
-    image: "https://image.pngaaa.com/9/554009-middle.png",
-    route: "140",
-    plate: "BC-2020",
-    time: "1.00 p.m",
-    routeName: "Mathara - Horana",
-  },
-];
+import URL from "../route";
 
 const TimeTableScreen = () => {
-  const [searchFilter, setSearchFilter] = useState(timeTab);
+
+  const [allTimetable, setAllTimetable] = useState();
+
+  const getAllTimetable = () => {
+    fetch(URL + "/get-time-tables", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+        setAllTimetable(resData);
+        setSearchFilter(resData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllTimetable();
+  }, []);
+
+  console.log("Under use efect" + allTimetable);
+
+  const [searchFilter, setSearchFilter] = useState();
 
   const searchTimeTable = (textToSearch) => {
     setSearchFilter(
-      timeTab.filter((i) =>
-        i.routeName.toLowerCase().includes(textToSearch.toLowerCase())
+      allTimetable.filter((i) =>
+        i.r_number.toLowerCase().includes(textToSearch.toLowerCase())
       )
     );
   };
@@ -78,12 +80,12 @@ const TimeTableScreen = () => {
       <FlatList
         data={searchFilter}
         keyExtractor={(item) => item.id}
-        renderItem={({ item: { image, route, plate, time, routeName } }) => (
+        renderItem={({ item: { bus_id, r_number, bus_number, time } }) => (
           <TouchableOpacity
             style={tw`flex-row items-center p-5 rounded-3xl
                 border-4 border-black border-opacity-10 m-2
                 `}
-            // onPress={() => navigation.navigate(screen)}
+          // onPress={() => navigation.navigate(screen)}
           >
             <Image
               style={{
@@ -91,18 +93,18 @@ const TimeTableScreen = () => {
                 height: 100,
                 resizeMode: "contain",
               }}
-              source={{ uri: image }}
+              source={{ uri: "https://image.pngaaa.com/9/554009-middle.png" }}
             />
             <View>
               <Text style={tw`font-semibold text-xl ml-10`}>
-                Plate No : {plate}
+                Plate No : {bus_number}
               </Text>
               <Text style={tw`text-gray-700 text-lg ml-10`}>
-                Route No : {route}
+                Route No : {r_number}
               </Text>
-              <Text style={tw`text-gray-600 text-lg ml-10`}>
-                Route : {routeName}
-              </Text>
+              {/* <Text style={tw`text-gray-600 text-lg ml-10`}>
+                Route : {}
+              </Text> */}
               <Text style={tw`text-gray-500 ml-10 text-lg`}>Time : {time}</Text>
             </View>
           </TouchableOpacity>
@@ -131,10 +133,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal'
   },
   titleSub: {
-      fontSize: 45,
-      color: 'black',
-      marginTop: 4,
-      fontWeight: 'bold'
+    fontSize: 45,
+    color: 'black',
+    marginTop: 4,
+    fontWeight: 'bold'
   },
   searchbar: {
     marginTop: 30,
