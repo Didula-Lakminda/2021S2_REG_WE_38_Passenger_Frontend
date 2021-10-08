@@ -57,9 +57,15 @@ const BookBus = ({ route }) => {
       })
         .then((res) => res.json())
         .then((resData) => {
-          console.log(resData);
-          alert('Payment Successfully');
-          navigation.navigate("LoginScreenForeign", passportID);
+          console.log(resData.message);
+          if(resData.message === "Your balance is insufficient"){
+            alert("Your balance is insufficient");
+            navigation.navigate("LoginScreenForeign", passportID);
+          }
+          else{
+            alert('Payment Successfully');
+            navigation.navigate("LoginScreenForeign", passportID);
+          }
 
         })
         .catch((err) => {
@@ -84,9 +90,15 @@ const BookBus = ({ route }) => {
       })
         .then((res) => res.json())
         .then((resData) => {
-          console.log(resData);
-          alert('Payment Successfully');
-          navigation.navigate("LoginScreenLocal", nicId);
+          console.log(resData.message);
+          if(resData.message === "Your balance is insufficient"){
+            alert("Your balance is insufficient");
+            navigation.navigate("LoginScreenForeign", nicId);
+          }
+          else{
+            alert('Payment Successfully');
+            navigation.navigate("LoginScreenForeign", nicId);
+          }
 
         })
         .catch((err) => {
